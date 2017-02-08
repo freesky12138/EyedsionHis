@@ -2,11 +2,20 @@ package eyedsion.soft.eyedsionhis.tools.retrofit;
 
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import eyedsion.soft.eyedsionhis.entity.ImgSubEntity;
+import eyedsion.soft.eyedsionhis.server.FileService;
 import eyedsion.soft.eyedsionhis.server.HttpService;
 import eyedsion.soft.eyedsionhis.tools.ProgressSubscriber;
+import eyedsion.soft.eyedsionhis.tools.ToastUtils;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -14,7 +23,8 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static eyedsion.soft.eyedsionhis.tools.contant.BASE_URL;
+import static eyedsion.soft.eyedsionhis.application.Contant.BASE_URL;
+import static eyedsion.soft.eyedsionhis.application.Contant.IMG_UPDATA_URL;
 
 /**
  * Created by Administrator on 2017/2/7.
@@ -24,6 +34,7 @@ public class RetrofitManage {
     private volatile static RetrofitManage INSTANCE;
     private static final int DEFAULT_TIMEOUT = 6;
     public static HttpService httpService;
+    public static FileService fileService;
 
     private RetrofitManage() {
         //手动创建一个OkHttpClient并设置超时时间
@@ -65,6 +76,10 @@ public class RetrofitManage {
         httpService = retrofit.create(HttpService.class);
     }
 
+    /**
+     *  加固定参数
+     **/
+
     public static RetrofitManage getInstance() {
         if (INSTANCE == null) {
             synchronized (RetrofitManage.class) {
@@ -97,6 +112,34 @@ public class RetrofitManage {
                 .subscribe(progressSubscriber);
         /*数据回调*/
         //observable.subscribe(progressSubscriber);
+    }
+
+    public void doFileDeal(String imgPath,Callback callback){
+        File file=new File(imgPath);
+        if(!file.exists()){
+            ToastUtils.show("图片上传失败");
+            return;
+        }
+
+        RequestBody requestBody=RequestBody.create(MediaType.parse("multipart/form-data"),file);
+
+        MultipartBody.Part body=MultipartBody.Part.createFormData("head",file.getName(),requestBody);
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+
+        builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(builder.build())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .baseUrl(IMG_UPDATA_URL)
+                .build();
+
+        fileService = retrofit.create(FileService.class);
+
+
+        Call<ImgSubEntity> call= fileService.upload(body);
+        call.enqueue(callback);
     }
 
     protected ProgressSubscriber progressSubscriber;

@@ -18,4 +18,11 @@
         android:layout_height="wrap_content"
         android:text="data"
         />
+
+    <Button
+        android:id="@+id/ima_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="上传图片"
+        />
 </com.zhy.autolayout.AutoLinearLayout>
