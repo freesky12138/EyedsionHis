@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/person_center_v2_erweima_layout"
+    android:layout_width="530px"
+    android:layout_height="660px"
+    android:background="@color/common_white"
+    >
+    <!-- android:background="@drawable/feed_back_popu_window_bg"-->
+
+
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/person_center_v2_person"
+        android:layout_width="match_parent"
+        android:background="@color/common_white"
+        android:layout_marginLeft="36px"
+        android:layout_marginTop="24px"
+        android:layout_height="120px">
+
+        <soft.eyedsion.eyedsion.widget.CircleImageView
+            android:id="@+id/person_center_v2_header"
+            android:layout_width="88px"
+            android:layout_height="88px"
+            android:src="@drawable/head_bg"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24px"
+            />
+
+        <TextView
+            android:id="@+id/person_center_v2_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text=""
+            android:textSize="28px"
+            android:textColor="@color/black_313131"
+            android:layout_toRightOf="@+id/person_center_v2_header"
+            android:layout_marginLeft="24px"
+            />
+
+        <ImageView
+            android:id="@+id/person_center_v2_sex"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12px"
+            android:layout_toRightOf="@+id/person_center_v2_name"
+
+            />
+
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <ImageView
+        android:id="@+id/cd_image"
+        android:layout_width="400px"
+        android:layout_height="400px"
+        android:layout_marginTop="12px"
+        android:layout_below="@+id/person_center_v2_person"
+        android:layout_centerHorizontal="true"
+        android:background="@color/common_white"
+        />
+
+    <TextView
+        android:layout_below="@+id/cd_image"
+        android:layout_marginTop="24px"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24px"
+        android:textColor="@color/black_313131"
+        android:text="用爱迪健康扫描上面的二维码，加我为好友"
+        />
+
+</com.zhy.autolayout.AutoRelativeLayout>
