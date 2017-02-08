@@ -46,6 +46,7 @@ public class MainActivity extends RxAppCompatActivity {
         ButterKnife.bind(this);
 
      //   hellow.setText("啦啦");
+        //测试提交15.27
     }
 
 
