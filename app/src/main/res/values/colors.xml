@@ -3,4 +3,25 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="main_person_top_bg">#37c067</color>
+
+    <!-- 白色 -->
+    <color name="common_white">#ffffff</color>
+
+    <!-- 灰色字体 -->
+    <color name="button_grey_666666">#666666</color>
+    <color name="grey_e6e6e6">#e6e6e6</color>
+
+    <!-- 通用分割线背景-->
+    <color name="common_line_bg">#d7d7d7</color>
+
+    <!-- 黑色字体 -->
+    <color name="black_313131">#313131</color>
+    <color name="black_333333">#333333</color>
+
+
+    <color name="main_num_color">#37c067</color>
+
+    <color name="yellow_ffd201">#ffd201</color>
+    <color name="yellow_fbd183">#fbd183</color>
 </resources>

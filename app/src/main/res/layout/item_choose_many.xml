@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_choose_only_linear"
+    android:layout_width="match_parent"
+    android:layout_height="420px"
+    android:background="@color/common_white"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:background="@color/main_num_color"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/choose_only_text"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:layout_marginLeft="24px"
+            android:gravity="center_vertical"
+            android:text="显示配置(请至少选择两项)"
+            android:textColor="@color/common_white"
+            android:textSize="30px" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <include layout="@layout/common_line"></include>
+
+    <!--
+        <TextView
+            android:id="@+id/info_sugar"
+            android:layout_width="320px"
+            android:layout_height="68px"
+            android:textSize="28px"
+            android:textColor="@color/black_313131"
+            android:gravity="center"
+            android:layout_marginTop="100px"
+            android:layout_gravity="center_horizontal"
+            android:text="高血糖"
+            android:background="@drawable/info_edit_no_select"
+            />
+    -->
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+//
+        <TextView
+            android:id="@+id/choose_many_sugar"
+            android:layout_width="128px"
+            android:layout_height="68px"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/info_edit_no_select"
+            android:gravity="center"
+            android:layout_marginTop="32px"
+            android:layout_marginLeft="64px"
+            android:text="血糖管理"
+
+            android:textColor="@color/black_313131"
+            android:textSize="22px" />
+
+        <TextView
+            android:id="@+id/choose_many_press"
+            android:layout_width="128px"
+            android:layout_height="68px"
+            android:layout_marginTop="32px"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/info_edit_no_select"
+            android:gravity="center"
+            android:layout_marginLeft="256px"
+            android:text="血压管理"
+            android:textColor="@color/black_313131"
+            android:textSize="22px" />
+
+        <TextView
+            android:id="@+id/choose_many_weight"
+            android:layout_width="128px"
+            android:layout_height="68px"
+            android:layout_marginTop="32px"
+            android:layout_marginLeft="416px"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/info_edit_no_select"
+            android:gravity="center"
+            android:text="体重管理"
+            android:textColor="@color/black_313131"
+            android:textSize="22px" />
+
+
+        <TextView
+            android:id="@+id/choose_many_sport"
+            android:layout_width="128px"
+            android:layout_height="68px"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/info_edit_no_select"
+            android:gravity="center"
+            android:layout_marginTop="144px"
+            android:layout_marginBottom="24px"
+            android:layout_marginLeft="64px"
+            android:text="运动管理"
+
+            android:textColor="@color/black_313131"
+            android:textSize="22px" />
+
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+
+    <include layout="@layout/common_line"></include>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/sure_layout"
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/common_white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/sure"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/main_num_color" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+
+</com.zhy.autolayout.AutoLinearLayout>
