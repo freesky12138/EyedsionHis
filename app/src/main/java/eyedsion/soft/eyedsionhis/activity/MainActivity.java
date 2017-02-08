@@ -45,7 +45,7 @@ public class MainActivity extends RxAppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-   
+
     }
 
 
