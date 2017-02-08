@@ -16,7 +16,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -115,7 +114,7 @@ public class RetrofitManage {
         //observable.subscribe(progressSubscriber);
     }
 
-    public void doFileDeal(String imgPath,Observable observable, RxAppCompatActivity rxAppCompatActivity, HttpOnNextListener listener){
+    public void doFileDeal(String imgPath,Callback callback){
         File file=new File(imgPath);
         if(!file.exists()){
             ToastUtils.show("图片上传失败");
@@ -140,17 +139,7 @@ public class RetrofitManage {
 
 
         Call<ImgSubEntity> call= fileService.upload(body);
-        call.enqueue(new Callback<ImgSubEntity>() {
-            @Override
-            public void onResponse(Call<ImgSubEntity> call, Response<ImgSubEntity> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<ImgSubEntity> call, Throwable t) {
-
-            }
-        });
+        call.enqueue(callback);
     }
 
     protected ProgressSubscriber progressSubscriber;

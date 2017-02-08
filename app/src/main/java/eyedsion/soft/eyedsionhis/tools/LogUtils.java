@@ -7,7 +7,7 @@ import android.util.Log;
  */
 public class LogUtils {
 
-    private static boolean isShow=false;
+    private static boolean isShow=true;
     public  static void showLog(String tag,String msg){
         if(isShow)
             Log.e(tag,msg);

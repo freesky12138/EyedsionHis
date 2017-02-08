@@ -14,6 +14,6 @@ import retrofit2.http.Part;
 public interface FileService
 {
     @Multipart
-    @POST
+    @POST("PostFormData")
     Call<ImgSubEntity> upload(@Part MultipartBody.Part file);
 }
