@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
@@ -29,6 +30,8 @@ import eyedsion.soft.eyedsionhis.tools.retrofit.RetrofitManage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static eyedsion.soft.eyedsionhis.tools.SdCardTools.hasSdcard;
 
 public class MainActivity extends RxAppCompatActivity {
 
@@ -73,6 +76,22 @@ public class MainActivity extends RxAppCompatActivity {
         intent_pick.setType("image/*");
         // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
         startActivityForResult(intent_pick, PHOTO_REQUEST_GALLERY);
+
+
+        /*
+          Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                        // 判断存储卡是否可以用，可用进行存储
+                        if (hasSdcard()) {
+                            tempFile = new File(Environment.getExternalStorageDirectory(),
+                                    PHOTO_FILE_NAME);
+                            // 从文件中创建uri
+                            Uri uri = Uri.fromFile(tempFile);
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                        }
+                        // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_CAREMA
+                        startActivityForResult(intent, PHOTO_REQUEST_CAREMA);
+
+        * */
     }
 
     private static final int PHOTO_REQUEST_CAREMA = 1;// 拍照
@@ -94,7 +113,11 @@ public class MainActivity extends RxAppCompatActivity {
 
         } else if (requestCode == PHOTO_REQUEST_CAREMA) {
 
-
+            if (hasSdcard()) {
+                crop(Uri.fromFile(tempFile));
+            } else {
+                Toast.makeText(this, "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show();
+            }
         } else if (requestCode == PHOTO_REQUEST_CUT) {
             // 从剪切图片返回的数据
             if (data != null) {
@@ -106,7 +129,7 @@ public class MainActivity extends RxAppCompatActivity {
 
                     FileOutputStream b = null;
                     String pathName = "";
-                    if (SdCardTools.hasSdcard()) {
+                    if (hasSdcard()) {
                         pathName = Environment.getExternalStorageDirectory() + "/eyedsion/";
                         File file = new File(pathName);
                         if (!file.exists()) {
