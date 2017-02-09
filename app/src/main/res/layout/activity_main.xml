@@ -16,13 +16,30 @@
         android:id="@+id/get_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="data"
-        />
+        android:text="data" />
 
     <Button
         android:id="@+id/ima_sub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="上传图片"
+        android:text="上传图片" />
+
+    <Button
+        android:id="@+id/take"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="拍照" />
+
+    <Button
+        android:id="@+id/move"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打开相册"
         />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    />
 </com.zhy.autolayout.AutoLinearLayout>
