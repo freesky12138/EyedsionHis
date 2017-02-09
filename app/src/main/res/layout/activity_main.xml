@@ -16,14 +16,33 @@
         android:id="@+id/get_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="data"
-        />
+        android:text="data" />
 
     <Button
         android:id="@+id/ima_sub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="上传图片"
+        android:text="上传图片" />
+
+    <Button
+        android:id="@+id/take"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="拍照" />
+
+    <Button
+        android:id="@+id/move"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打开相册"
         />
 
+<<<<<<< HEAD
+=======
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    />
+>>>>>>> f247594c065a15e004fd5e2628c50360ced248c4
 </com.zhy.autolayout.AutoLinearLayout>
