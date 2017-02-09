@@ -37,12 +37,9 @@
         android:text="打开相册"
         />
 
-<<<<<<< HEAD
-=======
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
     />
->>>>>>> f247594c065a15e004fd5e2628c50360ced248c4
 </com.zhy.autolayout.AutoLinearLayout>
