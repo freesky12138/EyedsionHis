@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import eyedsion.soft.eyedsionhis.tools.LogUtils;
 import eyedsion.soft.eyedsionhis.tools.SdCardTools;
 import eyedsion.soft.eyedsionhis.tools.retrofit.HttpOnNextListener;
 import eyedsion.soft.eyedsionhis.tools.retrofit.RetrofitManage;
+import eyedsion.soft.eyedsionhis.widget.DialogFactory;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,7 +49,12 @@ public class MainActivity extends RxAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        DialogFactory.showDeleteDialog(this, "是否删除", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
     }
 
 
@@ -159,7 +166,7 @@ public class MainActivity extends RxAppCompatActivity {
                         RetrofitManage.getInstance().doFileDeal(pathName, new Callback<ImgSubEntity>() {
                             @Override
                             public void onResponse(Call<ImgSubEntity> call, Response<ImgSubEntity> response) {
-                                LogUtils.showLog("url",response.body().getAccess_url());
+                                LogUtils.showLog("url", response.body().getAccess_url());
                             }
 
                             @Override

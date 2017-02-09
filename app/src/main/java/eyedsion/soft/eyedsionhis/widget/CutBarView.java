@@ -1,47 +1,39 @@
 package eyedsion.soft.eyedsionhis.widget;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
-import eyedsion.soft.eyedsionhis.R;
-
 
 /**
- *   待修改
+ * 一个条形自定义控件，可以自定义这个条形每个位置的大小颜色
  * Created by Huppert on 2016/12/14.
  */
 
 public class CutBarView extends View {
+
+    public static enum Orientation {
+        VERTICAL,
+        HORITITAL
+    }
+
+    //显示方式，横向或者竖向
+    private Orientation orientation;
+
     /**
-     * 从上至下的三个值
+     * 从上至下的值
      */
-    private int value1 = 0;
-    private int value2 = 0;
-    private int value3 = 0;
-    private int value4 = 0;
+    private int[] values;
+
 
     /**
      * 三种颜色
      */
-    private String color1 = "#ffaf46";
-    private String color2 = "#51dd82";
-    private String color3 = "#738bef";
-    private String color4 = "#ff7777";
+    private String[] colors;
 
-
-    /**
-     * 整体的宽高
-     */
-    private int heigh = 500;
-    private int weigh = 200;
-
-    private int TextSize;
-    private int TextColor;
 
     private Paint paint;
 
@@ -57,22 +49,6 @@ public class CutBarView extends View {
         super(context, attrs, defStyleAttr);
     }
 
-    public CutBarView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        paint = new Paint();
-
-        TypedArray mTypedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.CutBarView);
-        /*heigh=mTypedArray.getDimension(R.style.w)
-                weigh*/
-
-        TextSize = (int) mTypedArray.getDimension(R.styleable.CutBarView_TextSize, 15);
-        TextColor = mTypedArray.getColor(R.styleable.CutBarView_TextColor, Color.GRAY);
-        heigh = (int) mTypedArray.getDimension(R.styleable.CutBarView_Heigh, 400);
-        weigh = (int) mTypedArray.getDimension(R.styleable.CutBarView_Width, 100);
-
-        mTypedArray.recycle();
-    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -81,38 +57,91 @@ public class CutBarView extends View {
         if (paint == null)
             paint = new Paint();
 
+        if (Orientation.VERTICAL == orientation) {
+            DrawVertical(paint, canvas);
+        } else {
+            DrawHortital(paint, canvas);
+        }
+
+
+//        paint.set
+
+    }
+
+    private void DrawHortital(Paint paint, Canvas canvas) {
+        int weigh = this.getWidth();
+        int heigh = this.getHeight();
+
+        float left = 0;
+        float right = 0;
+        float top = 0;
+        float bottom = heigh;
+
+        float sum = 0;
+        for (int i = 0; i < values.length; i++) {
+            sum += values[i];
+        }
+
+        float kong = 100 - sum;
+
+        this.paint.setColor(Color.TRANSPARENT);
+        this.paint.setAntiAlias(true);  //消除锯齿
+
+        canvas.drawRect(left, top, weigh * (kong / 100), bottom, this.paint);
+
+        for (int i = 0; i < colors.length; i++) {
+            this.paint.setColor(Color.parseColor(colors[i]));
+            this.paint.setAntiAlias(true);  //消除锯齿
+
+            int widthTop = 0;// 这段颜色的上部分的位置
+            int widthBottom = 0; //这段颜色下部分的位置
+            for (int j = 0; j <= i; j++) {
+
+                widthBottom += values[j];
+                if (j < i) {
+                    widthTop += values[j];
+                }
+            }
+            canvas.drawRect(weigh * ((kong + widthTop) / 100), top, weigh * (kong + widthBottom) / 100, bottom, this.paint);
+        }
+    }
+
+    private void DrawVertical(Paint paint, Canvas canvas) {
+        int weigh = this.getWidth();
+        int heigh = this.getHeight();
 
         float left = 0;
         float right = weigh;
         float top = 0;
         float bottom = 0;
 
-        float sum = value1 + value2 + value3 + value4;
+        float sum = 0;
+        for (int i = 0; i < values.length; i++) {
+            sum += values[i];
+        }
+
         float kong = 100 - sum;
 
         paint.setColor(Color.TRANSPARENT);
         paint.setAntiAlias(true);  //消除锯齿
+
         canvas.drawRect(left, top, right, heigh * (kong / 100), paint);
 
-        paint.setColor(Color.parseColor(color1));
-        paint.setAntiAlias(true);  //消除锯齿
-        canvas.drawRect(left, heigh * (kong / 100), right, heigh * ((kong + value1) / 100), paint);
+        for (int i = 0; i < colors.length; i++) {
+            paint.setColor(Color.parseColor(colors[i]));
+            paint.setAntiAlias(true);  //消除锯齿
 
-        paint.setColor(Color.parseColor(color2));
-        paint.setAntiAlias(true);  //消除锯齿
-        canvas.drawRect(left, heigh * ((kong + value1) / 100), right, heigh * ((kong + value1 + value2) / 100), paint);
+            int heighTop = 0;// 这段颜色的上部分的位置
+            int heighBottom = 0; //这段颜色下部分的位置
+            for (int j = 0; j <= i; j++) {
 
-        paint.setColor(Color.parseColor(color3));
-        paint.setAntiAlias(true);  //消除锯齿
-        canvas.drawRect(left, heigh * ((kong + value1 + value2) / 100), right, heigh * ((kong + value1 + value2 + value3) / 100), paint);
-
-        paint.setColor(Color.parseColor(color4));
-        paint.setAntiAlias(true);  //消除锯齿
-        canvas.drawRect(left, heigh * ((kong + value1 + value2 + value3) / 100), right, heigh * ((kong + value1 + value2 + value3 + value4) / 100), paint);
-
-
-//        paint.set
-
+                heighBottom += values[j];
+                if (j < i) {
+                    heighTop += values[j];
+                }
+            }
+            canvas.drawRect(left, heigh * ((kong + heighTop) / 100), right, heigh * ((kong + heighBottom) / 100), paint);
+        }
     }
 
 
@@ -122,43 +151,18 @@ public class CutBarView extends View {
      * @return
      */
     public synchronized int[] getValue() {
-        return new int[]{value1, value2, value3, value4};
+        return values;
     }
 
     /**
-     * 设置三个值
-     *
-     * @param v1
-     * @param v2
-     * @param v3
+     * 设置值和颜色,方向
      */
-    public synchronized void setValue(int v1, int v2, int v3, int v4, int screenHeigh, int screenWidth, String... color) {
-        if (v1 < 0 || v2 < 0 || v3 < 0 || v4 < 0) {
-            v1 = 0;
-            v2 = 0;
-            v3 = 0;
-            v4 = 0;
-            //throw new IllegalArgumentException("progress not less than 0");
-        }
-        if (v1 + v2 + v3 + v4 > 100) {
-            v1 = 0;
-            v2 = 0;
-            v3 = 0;
-            v4 = 0;
-        }
-
-        this.value1 = v1;
-        this.value2 = v2;
-        this.value3 = v3;
-        this.value4 = v4;
-        heigh = screenHeigh * 360 / 1136;
-        weigh = screenWidth * 30 / 640;
+    public synchronized void setValue(int[] values, String[] colors, Orientation orientation) {
 
 
-        if (color.length == 2) {
-            color1 = color[0];
-            color2 = color[1];
-        }
+        this.values = values;
+        this.colors = colors;
+        this.orientation = orientation;
 
         postInvalidate();
 

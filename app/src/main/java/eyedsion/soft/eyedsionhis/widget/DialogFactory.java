@@ -40,9 +40,15 @@ import eyedsion.soft.eyedsionhis.tools.VisionUpdateTolls;
 public class DialogFactory {
     private static Dialog dialog = null;
 
+    /**
+     *
+     * @param context
+     * @param DeleteTitle  标题
+     * @param onClickListener 点击确定的监听
+     */
     public static void showDeleteDialog(Context context, String DeleteTitle, View.OnClickListener onClickListener) {
         dialog = new Dialog(context, R.style.loading_dialog);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
         dialog.setContentView(R.layout.widget_delete_dialog);
         dialog.setCanceledOnTouchOutside(true);
         AutoUtils.auto(dialog.findViewById(R.id.widget_delete_dialog_linear));
