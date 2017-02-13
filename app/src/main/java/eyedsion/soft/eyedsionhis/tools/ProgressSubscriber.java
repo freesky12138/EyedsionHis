@@ -9,6 +9,7 @@ import java.lang.ref.WeakReference;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
+import eyedsion.soft.eyedsionhis.bean.BaseResult;
 import eyedsion.soft.eyedsionhis.tools.retrofit.HttpOnNextListener;
 import rx.Subscriber;
 
@@ -157,7 +158,18 @@ public class ProgressSubscriber<T> extends Subscriber<T> {
     public void onNext(T t) {
         if (mSubscriberOnNextListener != null) {
 
-            mSubscriberOnNextListener.onNext(t);
+            if(t instanceof BaseResult){
+                BaseResult temp=(BaseResult)t;
+                if(temp.getResult()!=1){
+                    ToastUtils.show(temp.getErrormsg());
+                }else {
+                    mSubscriberOnNextListener.onNext(t);
+                }
+
+            }else {
+                mSubscriberOnNextListener.onNext(t);
+            }
+
         }
     }
 

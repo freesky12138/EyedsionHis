@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Session {
 
-    private static final SharedPreferences preferences = Application.getApplication().getSharedPreferences("Eyedsion",
+    private static final SharedPreferences preferences = Application.getApplication().getSharedPreferences("EyedsionHis",
             Activity.MODE_PRIVATE);
 
 

@@ -1,4 +1,4 @@
-package eyedsion.soft.eyedsionhis.bean;
+package eyedsion.soft.eyedsionhis.bean.result;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;

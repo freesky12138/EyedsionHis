@@ -163,7 +163,7 @@ public class VisionUpdateTolls {
 //		builder.setTitle("软件版本更新");
 
         final LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.update_progress, null);
+        View v = inflater.inflate(R.layout.dialog_update_progress, null);
         mProgress = (ProgressBar) v.findViewById(R.id.progress);
         TextView textView = (TextView) v.findViewById(R.id.cancel);
         textView.setOnClickListener(new View.OnClickListener() {

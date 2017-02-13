@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorAccent"
+    android:fitsSystemWindows="true"
     tools:context="eyedsion.soft.eyedsionhis.activity.MainActivity">
 
     <TextView
@@ -37,9 +39,12 @@
         android:text="打开相册"
         />
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/to_list"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-    />
+        android:text="跳转列表"
+        />
+
+
 </com.zhy.autolayout.AutoLinearLayout>

@@ -56,6 +56,33 @@ public class Utils {
         return String.valueOf(temp);
     }
 
+    public static String GetSign(String url,String... addString){
+
+        String time[]=url.split("timestamp=");
+        if(url.contains("timeStamp")){
+            time=url.split("timeStamp=");
+        }
+
+        time=time[1].split("&");
+
+        String[] temp=url.split("[?]");
+        temp=temp[0].split("[/]");
+        String sign=temp[temp.length-1];
+        if(addString.length==0){
+            sign=sign+time[0] +"ADX_H_C_SENDSADX_H_C_SENDSADX_H_C_SENDS";
+        }else {
+
+            for(int i=0;i<addString.length;i++){
+                sign+=addString[i];
+            }
+            sign=sign+time[0];
+            sign+="ADX_H_C_SENDSADX_H_C_SENDSADX_H_C_SENDS";
+        }
+
+        //Log.e("sign_url",url);
+        //Log.e("sign",sign);
+        return Md5Tolls.encrypt(sign);
+    }
 
 
     public static void showLog(Context context, String info, int time){

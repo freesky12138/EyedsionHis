@@ -51,7 +51,7 @@ public class EyedsionHeader extends AutoRelativeLayout {
     private void initLayoutInflater() {
         LayoutInflater lInflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = lInflater.inflate(R.layout.header, this);
+        view = lInflater.inflate(R.layout.common_header, this);
         initView();
     }
 

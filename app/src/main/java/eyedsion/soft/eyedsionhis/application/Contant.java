@@ -8,7 +8,7 @@ public class Contant {
     /**
      * 测试url
      */
-    public static final String BASE_URL = "https://api.douban.com/v2/movie/";
+    public static final String BASE_URL = "http://r.eyedsion.com:10080/api/";
 
 
     /**

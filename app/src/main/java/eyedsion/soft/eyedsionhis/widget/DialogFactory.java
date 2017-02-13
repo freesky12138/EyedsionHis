@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import eyedsion.soft.eyedsionhis.R;
 import eyedsion.soft.eyedsionhis.adapter.common.ChooseOnlyAdapter;
 import eyedsion.soft.eyedsionhis.adapter.common.TextAdapter;
-import eyedsion.soft.eyedsionhis.bean.UpdataResult;
+import eyedsion.soft.eyedsionhis.bean.result.UpdataResult;
 import eyedsion.soft.eyedsionhis.tools.ToastUtils;
 import eyedsion.soft.eyedsionhis.tools.VisionUpdateTolls;
 
@@ -49,7 +49,7 @@ public class DialogFactory {
     public static void showDeleteDialog(Context context, String DeleteTitle, View.OnClickListener onClickListener) {
         dialog = new Dialog(context, R.style.loading_dialog);
 
-        dialog.setContentView(R.layout.widget_delete_dialog);
+        dialog.setContentView(R.layout.dialog_delete);
         dialog.setCanceledOnTouchOutside(true);
         AutoUtils.auto(dialog.findViewById(R.id.widget_delete_dialog_linear));
         TextView title = (TextView) dialog.findViewById(R.id.dialog_delete_title);
@@ -70,7 +70,7 @@ public class DialogFactory {
     public static void showChoose2(Context context, String DeleteTitle, String left, String Right, View.OnClickListener leftclick, View.OnClickListener rightclick) {
         dialog = new Dialog(context, R.style.loading_dialog);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setContentView(R.layout.widget_delete_dialog);
+        dialog.setContentView(R.layout.dialog_delete);
         dialog.setCanceledOnTouchOutside(true);
         AutoUtils.auto(dialog.findViewById(R.id.widget_delete_dialog_linear));
         TextView title = (TextView) dialog.findViewById(R.id.dialog_delete_title);
@@ -90,7 +90,7 @@ public class DialogFactory {
     public static void showChooseDistory2(Context context, String DeleteTitle, String left, String distory, String Right, View.OnClickListener leftclick, View.OnClickListener rightclick) {
         dialog = new Dialog(context, R.style.loading_dialog);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setContentView(R.layout.widget_delete_dialog);
+        dialog.setContentView(R.layout.dialog_delete);
         dialog.setCanceledOnTouchOutside(true);
         AutoUtils.auto(dialog.findViewById(R.id.widget_delete_dialog_linear));
         TextView title = (TextView) dialog.findViewById(R.id.dialog_delete_title);
@@ -115,14 +115,14 @@ public class DialogFactory {
 
         dialog = new Dialog(context, R.style.loading_dialog);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setContentView(R.layout.widget_choose_only_dialog);
+        dialog.setContentView(R.layout.dialog_choose_only);
         dialog.setCanceledOnTouchOutside(true);
         AutoUtils.auto(dialog.findViewById(R.id.widget_choose_only_linear));
         TextView title = (TextView) dialog.findViewById(R.id.choose_only_text);
         title.setText(DeleteTitle);
 
         ListView choose_only_list = (ListView) dialog.findViewById(R.id.choose_only_list);
-        ChooseOnlyAdapter adapter = new ChooseOnlyAdapter(context, R.layout.item_dialog_choose_only);
+        ChooseOnlyAdapter adapter = new ChooseOnlyAdapter(context, R.layout.dialog_item_choose_only);
         choose_only_list.setAdapter(adapter);
         adapter.notifyDataSetChanged(names, true);
         choose_only_list.setOnItemClickListener(onItemClickListen);
@@ -139,7 +139,7 @@ public class DialogFactory {
     public static void showUpdataDialog(final Context context, final UpdataResult.DateEntity dateEntity) {
         dialog = new Dialog(context, R.style.loading_dialog);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setContentView(R.layout.widget_updata_dialog);
+        dialog.setContentView(R.layout.dialog_updata);
         dialog.setCanceledOnTouchOutside(true);
         AutoUtils.auto(dialog.findViewById(R.id.widget_delete_dialog_linear));
 
@@ -186,7 +186,7 @@ public class DialogFactory {
     public static void showEditDialog(final Context context, String title, final View.OnClickListener onClickListener) {
         dialog = new Dialog(context, R.style.loading_dialog);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setContentView(R.layout.widget_edit_dialog);
+        dialog.setContentView(R.layout.dialog_edit);
         dialog.setCanceledOnTouchOutside(true);
         AutoUtils.auto(dialog.findViewById(R.id.widget_choose_only_linear));
         final EditText edit_dialog = (EditText) dialog.findViewById(R.id.edit_dialog);
@@ -506,7 +506,7 @@ public class DialogFactory {
         lp.alpha = 0.7f;
         context.getWindow().setAttributes(lp);
 
-        View item_choose_many = LayoutInflater.from(context).inflate(R.layout.item_choose_many, null, true);
+        View item_choose_many = LayoutInflater.from(context).inflate(R.layout.dialog_choose_many, null, true);
 
         final TextView choose_many_sugar = (TextView) item_choose_many.findViewById(R.id.choose_many_sugar);
         if (status[0] == true) {

@@ -1,19 +1,26 @@
 package eyedsion.soft.eyedsionhis.tools.retrofit;
 
+import com.google.gson.Gson;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import eyedsion.soft.eyedsionhis.application.Session;
 import eyedsion.soft.eyedsionhis.entity.ImgSubEntity;
 import eyedsion.soft.eyedsionhis.server.FileService;
 import eyedsion.soft.eyedsionhis.server.HttpService;
 import eyedsion.soft.eyedsionhis.tools.ProgressSubscriber;
 import eyedsion.soft.eyedsionhis.tools.ToastUtils;
+import eyedsion.soft.eyedsionhis.tools.Utils;
+import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -36,6 +43,13 @@ public class RetrofitManage {
     public static HttpService httpService;
     public static FileService fileService;
 
+    public static RequestBody object2Body(Object object){
+
+        String  bodyString=new Gson().toJson(object);
+        RequestBody body=RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),bodyString);
+        return body;
+    }
+
     private RetrofitManage() {
         //手动创建一个OkHttpClient并设置超时时间
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -47,24 +61,35 @@ public class RetrofitManage {
                 return null;
             }
         });*/
-        /*Interceptor requestInterceptor = new Interceptor() {
+        Interceptor requestInterceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
 
-                Request compressedRequest = request.newBuilder()
-                        .header("Cookie", cookie)
-                        .header("Accept-Language", Locale.getDefault().toString())
-                        .header("Accept-Charset", "utf-8")
-                        .header("Connection", "Keep-Alive")
-                        .header("User-Agent", getUserAgent())
-                        .build();
-                Response response = chain.proceed(compressedRequest);
-                return response;
+
+                String sign=chain.request().headers().get("signtemp");
+                if(sign==null){
+                    Request compressedRequest = request.newBuilder()
+                            .addHeader("sign", Utils.GetSign(chain.request().url().toString()))
+                            .addHeader("Content-Type", "application/json")
+                            .addHeader("usertoken", Session.GetString("usertoken"))
+                            .build();
+                    Response response = chain.proceed(compressedRequest);
+                    return response;
+                }else {
+                    Request compressedRequest = request.newBuilder()
+                            .addHeader("sign", Utils.GetSign(chain.request().url().toString(),sign))
+                            .addHeader("Content-Type", "application/json")
+                            .addHeader("usertoken", Session.GetString("usertoken"))
+                            .build();
+                    Response response = chain.proceed(compressedRequest);
+                    return response;
+                }
+
             }
         };
 
-        builder.addInterceptor()*/
+        builder.addInterceptor(requestInterceptor);
         builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         Retrofit retrofit = new Retrofit.Builder()
                 .client(builder.build())
@@ -94,9 +119,10 @@ public class RetrofitManage {
     /**
      * 处理http请求
      */
-    public void doHttpDeal(Observable observable, RxAppCompatActivity rxAppCompatActivity, HttpOnNextListener listener) {
+    public void doHttpDeal(Observable observable, RxAppCompatActivity rxAppCompatActivity, HttpOnNextListener listener,boolean IsShowDialog) {
 
-        progressSubscriber = new ProgressSubscriber(listener, rxAppCompatActivity);
+        progressSubscriber = new ProgressSubscriber(listener, rxAppCompatActivity,IsShowDialog,false);
+
 
                 /*失败后的retry配置*/
         observable
