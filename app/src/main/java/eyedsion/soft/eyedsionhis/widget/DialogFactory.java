@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 import com.zhy.autolayout.utils.AutoUtils;
 
@@ -41,73 +39,74 @@ public class DialogFactory {
     private static Dialog dialog = null;
 
     /**
-     *
      * @param context
-     * @param DeleteTitle  标题
-     * @param onClickListener 点击确定的监听
+     * @param DeleteTitle 标题
+     * @param sureOnClick 点击确定的监听
      */
-    public static void showDeleteDialog(Context context, String DeleteTitle, View.OnClickListener onClickListener) {
-        dialog = new Dialog(context, R.style.loading_dialog);
-
-        dialog.setContentView(R.layout.dialog_delete);
-        dialog.setCanceledOnTouchOutside(true);
-        AutoUtils.auto(dialog.findViewById(R.id.widget_delete_dialog_linear));
-        TextView title = (TextView) dialog.findViewById(R.id.dialog_delete_title);
-        title.setText(DeleteTitle);
-
-        TextView sure = (TextView) dialog.findViewById(R.id.sure);
-        sure.setOnClickListener(onClickListener);
-        TextView clear = (TextView) dialog.findViewById(R.id.clear);
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
+    public static void showDeleteDialog(Context context, String DeleteTitle, View.OnClickListener sureOnClick) {
+        showChooseDesc(context, DeleteTitle, "取消", null, "确认", null, sureOnClick);
     }
 
-    public static void showChoose2(Context context, String DeleteTitle, String left, String Right, View.OnClickListener leftclick, View.OnClickListener rightclick) {
-        dialog = new Dialog(context, R.style.loading_dialog);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setContentView(R.layout.dialog_delete);
-        dialog.setCanceledOnTouchOutside(true);
-        AutoUtils.auto(dialog.findViewById(R.id.widget_delete_dialog_linear));
-        TextView title = (TextView) dialog.findViewById(R.id.dialog_delete_title);
-        title.setText(DeleteTitle);
-
-        TextView sure = (TextView) dialog.findViewById(R.id.sure);
-        sure.setText(left);
-        sure.setOnClickListener(leftclick);
-
-        TextView clear = (TextView) dialog.findViewById(R.id.clear);
-        clear.setText(Right);
-        clear.setOnClickListener(rightclick);
-        dialog.show();
+    public static void showChooseNoDesc(Context context, String Title, String left, String Right, View.OnClickListener leftclick, View.OnClickListener rightclick) {
+        showChooseDesc(context, Title, left, null, Right, leftclick, rightclick);
     }
 
 
-    public static void showChooseDistory2(Context context, String DeleteTitle, String left, String distory, String Right, View.OnClickListener leftclick, View.OnClickListener rightclick) {
+    public static void showChooseDesc(Context context, String Title, String left, String desc, String Right, View.OnClickListener leftclick, View.OnClickListener rightclick) {
         dialog = new Dialog(context, R.style.loading_dialog);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setContentView(R.layout.dialog_delete);
+        dialog.setContentView(R.layout.dialog_choose_two);
         dialog.setCanceledOnTouchOutside(true);
-        AutoUtils.auto(dialog.findViewById(R.id.widget_delete_dialog_linear));
-        TextView title = (TextView) dialog.findViewById(R.id.dialog_delete_title);
-        title.setText(DeleteTitle);
+        TextView dialog_title=(TextView) dialog.findViewById(R.id.dialog_title);
+        TextView dialog_desc=(TextView) dialog.findViewById(R.id.dialog_desc);
+        TextView dialog_clear=(TextView) dialog.findViewById(R.id.dialog_clear);
+        TextView dialog_sure=(TextView) dialog.findViewById(R.id.dialog_sure);
+        if(Title==null){
+            dialog_title.setText("标题");
+        }else {
+            dialog_title.setText(Title);
+        }
+        if(left==null){
+            dialog_clear.setText("取消");
+        }else {
+            dialog_clear.setText(left);
+        }
 
-        TextView sure = (TextView) dialog.findViewById(R.id.sure);
-        sure.setText(left);
-        sure.setOnClickListener(leftclick);
+        if(Right==null){
+            dialog_sure.setText("确认");
+        }else {
+            dialog_sure.setText(Right);
+        }
 
-        TextView clear = (TextView) dialog.findViewById(R.id.clear);
-        clear.setText(Right);
-        clear.setOnClickListener(rightclick);
+        if(desc==null){
+            dialog_desc.setVisibility(View.GONE);
+        }else {
+            dialog_desc.setVisibility(View.VISIBLE);
+            dialog_desc.setText(desc);
+        }
 
-        AutoLinearLayout delete_distory = (AutoLinearLayout) dialog.findViewById(R.id.delete_distory);
-        delete_distory.setVisibility(View.VISIBLE);
-        TextView dialog_delete_distory = (TextView) dialog.findViewById(R.id.dialog_delete_distory);
-        dialog_delete_distory.setText(distory);
+        if(leftclick==null){
+            dialog_clear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DialogFactory.dismiss();
+                }
+            });
+        }else {
+            dialog_clear.setOnClickListener(leftclick);
+        }
+
+        if(rightclick==null){
+            dialog_sure.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DialogFactory.dismiss();
+                }
+            });
+        }else {
+            dialog_sure.setOnClickListener(rightclick);
+        }
+
         dialog.show();
     }
 
@@ -117,7 +116,7 @@ public class DialogFactory {
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setContentView(R.layout.dialog_choose_only);
         dialog.setCanceledOnTouchOutside(true);
-        AutoUtils.auto(dialog.findViewById(R.id.widget_choose_only_linear));
+
         TextView title = (TextView) dialog.findViewById(R.id.choose_only_text);
         title.setText(DeleteTitle);
 
@@ -188,7 +187,6 @@ public class DialogFactory {
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setContentView(R.layout.dialog_edit);
         dialog.setCanceledOnTouchOutside(true);
-        AutoUtils.auto(dialog.findViewById(R.id.widget_choose_only_linear));
         final EditText edit_dialog = (EditText) dialog.findViewById(R.id.edit_dialog);
         TextView textView = (TextView) dialog.findViewById(R.id.choose_only_text);
         TextView sure = (TextView) dialog.findViewById(R.id.sure);
@@ -204,7 +202,6 @@ public class DialogFactory {
         dialog.show();
 
     }
-
 
 
     public static int choose1 = -1;
@@ -299,7 +296,7 @@ public class DialogFactory {
                     View firstVisiableChildView = layoutManager.findViewByPosition(position);
                     int itemHeight = firstVisiableChildView.getHeight();
                     int heigh = (position) * itemHeight - firstVisiableChildView.getTop();
-                    Log.e("top", (position) * itemHeight - firstVisiableChildView.getTop() + "");
+
                     if (heigh % itemHeight > itemHeight / 2) {
 
                         textAdapter1.setChooseIndex(firstItemPosition + 3);

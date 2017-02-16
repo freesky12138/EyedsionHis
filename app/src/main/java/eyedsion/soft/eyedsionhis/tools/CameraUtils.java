@@ -38,50 +38,51 @@ public class CameraUtils {
     }
 
 
-    public static CameraUtils getCameraUtils(){
-        if (instance==null){
-            synchronized (CameraUtils.class){
-                if (instance==null){
-                    instance=new CameraUtils();
+    public static CameraUtils getCameraUtils() {
+        if (instance == null) {
+            synchronized (CameraUtils.class) {
+                if (instance == null) {
+                    instance = new CameraUtils();
                 }
             }
         }
         return instance;
     }
 
-    public static void chooseImg(Activity activity){
+    public static void chooseImg(Activity activity) {
         Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
-        pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+        pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         activity.startActivityForResult(pickIntent, PHOTO_REQUEST_GALLERY);
     }
 
-    public static void openCamera(Activity context){
-        File outputImage=new File(context.getExternalCacheDir(),System.currentTimeMillis()+".jpg");
+    public static void openCamera(Activity context) {
+        File outputImage = new File(context.getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
         try {
-            if (outputImage.exists()){
+            if (outputImage.exists()) {
                 outputImage.delete();
             }
             outputImage.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (Build.VERSION.SDK_INT>=24){
-            imageUri=  FileProvider.getUriForFile(context,"eyedsion.soft.eyedsionhis.fileprovider",outputImage);
-        }else {
-            imageUri=Uri.fromFile(outputImage);
+        if (Build.VERSION.SDK_INT >= 24) {
+            imageUri = FileProvider.getUriForFile(context, "eyedsion.soft.eyedsionhis.fileprovider", outputImage);
+        } else {
+            imageUri = Uri.fromFile(outputImage);
         }
-        Intent intent=new Intent("android.media.action.IMAGE_CAPTURE");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-        context.startActivityForResult(intent,PHOTO_REQUEST_CAREMA);
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        context.startActivityForResult(intent, PHOTO_REQUEST_CAREMA);
 
     }
 
 
     /**
      * 调用系统的图片裁剪
+     *
      * @param data
      */
-    private void startPhotoZoom(Activity activity,Uri data) {
+    private void startPhotoZoom(Activity activity, Uri data) {
 
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(data, "image/*");
@@ -99,26 +100,25 @@ public class CameraUtils {
     }
 
 
-
-
-
-    public  boolean OnResult(Activity activity,int requestCode, int resultCode, Intent data){
+    public boolean OnResult(Activity activity, int requestCode, int resultCode, Intent data) {
         if (requestCode == PHOTO_REQUEST_CAREMA) {
-            startPhotoZoom(activity,imageUri);
+            startPhotoZoom(activity, imageUri);
             return true;
-        }else if (requestCode==PHOTO_REQUEST_GALLERY){
-            startPhotoZoom(activity,data.getData());
+        } else if (requestCode == PHOTO_REQUEST_GALLERY) {
+            if (data != null && data.getData() != null)
+                startPhotoZoom(activity, data.getData());
             return true;
-        }else if (requestCode==PHOTO_REQUEST_CUT){
-            submitImg(activity,data);
+        } else if (requestCode == PHOTO_REQUEST_CUT) {
+            if (data != null && data.getData() != null)
+                submitImg(activity, data);
             return true;
         }
-            return false;
+        return false;
 
 
     }
 
-    private void submitImg(Activity activity,Intent data){
+    private void submitImg(Activity activity, Intent data) {
         if (data != null) {
             Bitmap bitmap = data.getParcelableExtra("data");
             if (bitmap != null) {

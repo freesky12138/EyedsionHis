@@ -4,7 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,14 +14,17 @@ import eyedsion.soft.eyedsionhis.R;
 import eyedsion.soft.eyedsionhis.adapter.RecycleAdapter.DividerItemDecoration;
 import eyedsion.soft.eyedsionhis.adapter.RecycleAdapter.LoadMoreWrapper;
 import eyedsion.soft.eyedsionhis.adapter.RecycleAdapter.MultiItemTypeAdapter;
+import eyedsion.soft.eyedsionhis.widget.EmptyRecycleView;
 
 /**
  * Created by Administrator on 2017/2/10.
  */
 
 public class BaseListActivity extends BaseActivity{
-    public RecyclerView pullToRefreshView;
+    public EmptyRecycleView pullToRefreshView;
 
+    protected View no_data_view;
+    protected View no_net_view;
 
     //通用的adapter
     public MultiItemTypeAdapter adapter;
@@ -52,7 +55,11 @@ public class BaseListActivity extends BaseActivity{
     private void settingRefershView() {
         swip_refersh_layout = (SwipeRefreshLayout) findViewById(R.id.swip_refersh_layout);
 
-        pullToRefreshView = (RecyclerView) findViewById(R.id.pull_to_refresh_list_view);
+        pullToRefreshView = (EmptyRecycleView) findViewById(R.id.pull_to_refresh_list_view);
+
+        pullToRefreshView.setEmptyView(findViewById(R.id.recycle_no_data));
+        pullToRefreshView.setNoNetView(findViewById(R.id.recycle_no_net));
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         pullToRefreshView.setLayoutManager(linearLayoutManager);

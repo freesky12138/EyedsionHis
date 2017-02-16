@@ -1,10 +1,12 @@
 package eyedsion.soft.eyedsionhis.base;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -14,6 +16,7 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import butterknife.ButterKnife;
 import eyedsion.soft.eyedsionhis.R;
 import eyedsion.soft.eyedsionhis.tools.AppManager;
+import eyedsion.soft.eyedsionhis.tools.InputManage;
 
 /**
  * Created by Administrator on 2017/2/9.
@@ -90,6 +93,21 @@ public abstract class BaseActivity extends RxAppCompatActivity {
             winParams.flags &= ~bits;
         }
         win.setAttributes(winParams);
+    }
+
+
+    private static View getRootView(Activity context) {
+        return ((ViewGroup) context.findViewById(android.R.id.content)).getChildAt(0);
+    }
+
+    /**
+     * 关闭输入法
+     */
+    @Override
+    protected void onPause() {
+
+        super.onPause();
+        InputManage.closeInput(getRootView(this));
     }
 
 }

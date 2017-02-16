@@ -64,6 +64,7 @@ public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<MultiItemTypeA
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemViewDelegate itemViewDelegate = mItemViewDelegateManager.getItemViewDelegate(viewType);
         int layoutId = itemViewDelegate.getItemViewLayoutId();
+
         ViewHolder holder = ViewHolder.createViewHolder(mContext, parent, layoutId);
         onViewHolderCreated(holder,holder.getConvertView());
         setListener(parent, holder, viewType);

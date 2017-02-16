@@ -5,6 +5,7 @@
     android:background="@color/common_white"
     android:layout_height="80px">
 
+
     <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/popu_window_add_fochs_choose_friend"

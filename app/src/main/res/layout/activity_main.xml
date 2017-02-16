@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorAccent"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="eyedsion.soft.eyedsionhis.activity.MainActivity">
+
 
     <TextView
         android:id="@+id/hellow"
@@ -44,6 +45,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="跳转列表"
+        />
+
+    <Button
+        android:id="@+id/show_delete_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="删除Dialog"
+        />
+
+    <Button
+        android:id="@+id/show_choose2_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="两个选项Dialog"
+        />
+
+    <Button
+        android:id="@+id/show_choose2_desc_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="两个选项带描述Dialog"
+        />
+
+    <Button
+        android:id="@+id/show_choose_only_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="单一选项Dialog"
+        />
+
+    <Button
+        android:id="@+id/show_edit_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="编辑Dialo"
+        />
+
+    <Button
+        android:id="@+id/show_choose_value_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="asdfasdf"
         />
 
 

@@ -29,9 +29,9 @@ public class SimpleListActivity extends BaseListActivity{
 
     @Override
     public void getReferData() {
-        RequestBody body=RetrofitManage.object2Body(new CollectionMessageV2Request(3,indexPageNum,10));
+        RequestBody body=RetrofitManage.object2Body(new CollectionMessageV2Request(3,indexPageNum,8));
 
-        String sign=String.valueOf(3)+ String.valueOf(indexPageNum)+ String.valueOf(10);
+        String sign=String.valueOf(3)+ String.valueOf(indexPageNum)+ String.valueOf(8);
 
         RetrofitManage.getInstance()
                 .doHttpDeal(RetrofitManage.httpService.getError(Contant.GetCurrueTime(),body,sign), this, new HttpOnNextListener<MessageDefaultV2Result>() {
