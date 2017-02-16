@@ -29,6 +29,7 @@ public abstract class BaseFragment extends Fragment {
         initData();
     }
 
+    //123
     protected abstract View initView();
 
     public void initData() {
